@@ -43,12 +43,12 @@ RSpec.describe TMNGBookingNr do
       expect(booking.booking_nr_body.to_i + 1).to be new_booking.booking_nr_body.to_i
     end
 
-    it 'does not populate the booking_nr_prefix field' do
-      expect(booking.booking_nr_prefix).to be_nil
+    it 'sets the booking_nr_prefix field to default' do
+      expect(booking.booking_nr_prefix).to eq '00'
     end
 
-    it 'does not populate the booking_nr_postfix field' do
-      expect(booking.booking_nr_postfix).to be_nil
+    it 'sets the booking_nr_postfix field to default' do
+      expect(booking.booking_nr_postfix).to eq Date.today.year.to_s
     end
 
     it 'populates the booking_nr field' do
