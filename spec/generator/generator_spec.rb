@@ -26,11 +26,24 @@ RSpec.describe TMNGBookingNr do
   end
 
   describe '#generate_booking_nr' do
-    before(:each) { booking.generate_booking_nr }
-    before(:each) { booking_with_options.generate_booking_nr }
+    before(:each) do
+      booking.generate_booking_nr
+      booking.save
+    end
+    before(:each) do 
+      booking_with_options.generate_booking_nr
+      booking.save
+    end
 
     it 'generates a booking_nr_body' do
       expect(booking.booking_nr_body).not_to be_nil
+    end
+
+    it 'increments the booking_nr_body by 1' do
+      new_booking = Booking.new
+      new_booking.generate_booking_nr
+      p booking.booking_nr_body, '!=!=!=!==!=!=!'
+      expect(booking.booking_nr_body.to_i + 1).to be new_booking.booking_nr_body.to_i
     end
 
     it 'does not populate the booking_nr_prefix field' do

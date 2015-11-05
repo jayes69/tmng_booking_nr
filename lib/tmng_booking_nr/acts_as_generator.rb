@@ -4,7 +4,7 @@ module TMNGBookingNr
 
     def build_booking_nr_body
       ActiveRecord::Base.transaction do
-        current_nr = self.class.select(:booking_nr_body).last.try(:id)
+        current_nr = self.class.select(:booking_nr_body).last.try(:booking_nr_body)
         booking_nr_body = current_nr.to_i + 1
         b_length = self.class.booking_nr_options[:body_length]
 
