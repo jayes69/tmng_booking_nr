@@ -3,14 +3,11 @@ module TMNGBookingNr
     extend ActiveSupport::Concern
 
     def build_booking_nr_body
-      ActiveRecord::Base.transaction do
-        current_nr = self.class.select(:booking_nr_body).last.try(:booking_nr_body)
-        booking_nr_body = current_nr.to_i + 1
-        b_length = self.class.booking_nr_options[:body_length]
+      current_nr = self.class.select(:booking_nr_body).last.try(:booking_nr_body)
+      booking_nr_body = current_nr.to_i + 1
+      b_length = self.class.booking_nr_options[:body_length]
 
-        self.booking_nr_body =
-          booking_nr_body.to_s.rjust(b_length, '0')
-      end
+      booking_nr_body.to_s.rjust(b_length, '0')
     end
 
     module ClassMethods #:nodoc:

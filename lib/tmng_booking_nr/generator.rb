@@ -3,7 +3,7 @@ module TMNGBookingNr
     extend ActiveSupport::Concern
 
     def generate_booking_nr(opts = {})
-      build_booking_nr_body
+      self.booking_nr_body = build_booking_nr_body
       self.booking_nr_prefix = opts[:prefix]
       self.booking_nr_postfix = opts[:postfix]
 

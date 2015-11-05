@@ -29,10 +29,8 @@ RSpec.describe TMNGBookingNr do
     before(:each) do
       booking.generate_booking_nr
       booking.save
-    end
-    before(:each) do 
       booking_with_options.generate_booking_nr
-      booking.save
+      booking_with_options.save
     end
 
     it 'generates a booking_nr_body' do
@@ -66,6 +64,7 @@ RSpec.describe TMNGBookingNr do
       before(:each) do
         booking.generate_booking_nr :prefix => '01',
                                     :postfix => '02'
+        booking.save
       end
 
       it 'populates the booking_nr_prefix field' do
@@ -74,6 +73,12 @@ RSpec.describe TMNGBookingNr do
 
       it 'populates the booking_nr_postfix field' do
         expect(booking.booking_nr_postfix).to eq '02'
+      end
+
+      it 'increments the booking_nr_body by 1' do
+        new_booking = Booking.new
+        new_booking.generate_booking_nr
+        expect(booking.booking_nr_body.to_i + 1).to be new_booking.booking_nr_body.to_i
       end
     end
 
@@ -84,7 +89,6 @@ RSpec.describe TMNGBookingNr do
       end
 
       it 'sets the length of booking_nr_body' do
-        p BookingWithOption.booking_nr_options[:body_length], booking_with_options.booking_nr_body, '!=!=!=!='
         expected_length = BookingWithOption.booking_nr_options[:body_length]
         actual_length = booking_with_options.booking_nr_body.to_s.length
         expect(actual_length).to be expected_length
