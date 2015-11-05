@@ -4,8 +4,8 @@ module TMNGBookingNr
 
     def generate_booking_nr(opts = {})
       self.booking_nr_body = build_booking_nr_body
-      self.booking_nr_prefix = opts[:prefix]
-      self.booking_nr_postfix = opts[:postfix]
+      self.booking_nr_prefix = opts[:prefix] || '00'
+      self.booking_nr_postfix = opts[:postfix] || Date.today.year
 
       bokking_nr_field = self.class.booking_nr_options[:booking_nr_field]
       send "#{bokking_nr_field}=", self.class.build_booking_nr(self)
@@ -13,8 +13,8 @@ module TMNGBookingNr
 
     module ClassMethods #:nodoc:
       def build_booking_nr(record)
-        prefix = record.booking_nr_prefix || '00'
-        postfix = record.booking_nr_postfix || Date.today.year
+        prefix = record.booking_nr_prefix
+        postfix = record.booking_nr_postfix
         nr_body = record.booking_nr_body
 
         format_booking_nr prefix, nr_body, postfix
