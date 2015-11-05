@@ -42,7 +42,6 @@ RSpec.describe TMNGBookingNr do
     it 'increments the booking_nr_body by 1' do
       new_booking = Booking.new
       new_booking.generate_booking_nr
-      p booking.booking_nr_body, '!=!=!=!==!=!=!'
       expect(booking.booking_nr_body.to_i + 1).to be new_booking.booking_nr_body.to_i
     end
 
