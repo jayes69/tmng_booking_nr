@@ -40,7 +40,12 @@ RSpec.describe TMNGBookingNr do
     it 'increments the booking_nr_body by 1' do
       new_booking = Booking.new
       new_booking.generate_booking_nr
-      expect(booking.booking_nr_body.to_i + 1).to be new_booking.booking_nr_body.to_i
+      new_booking.save
+      expect(Integer(booking.booking_nr_body) + 1).to be Integer(new_booking.booking_nr_body)
+    end
+
+    it 'increments the booking_nr_body for the prefix' do
+      expect(Integer(booking.booking_nr_body)).to be Integer(booking_with_options.booking_nr_body)
     end
 
     it 'sets the booking_nr_prefix field to default' do
@@ -61,24 +66,25 @@ RSpec.describe TMNGBookingNr do
     end
 
     context 'with arguments :prefix and :postfix' do
+      let(:another_booking) { Booking.new }
       before(:each) do
-        booking.generate_booking_nr :prefix => '01',
-                                    :postfix => '02'
-        booking.save
+        another_booking.generate_booking_nr :prefix => '01',
+                                            :postfix => '02'
+        another_booking.save
       end
 
       it 'populates the booking_nr_prefix field' do
-        expect(booking.booking_nr_prefix).to eq '01'
+        expect(another_booking.booking_nr_prefix).to eq '01'
       end
 
       it 'populates the booking_nr_postfix field' do
-        expect(booking.booking_nr_postfix).to eq '02'
+        expect(another_booking.booking_nr_postfix).to eq '02'
       end
 
       it 'increments the booking_nr_body by 1' do
         new_booking = Booking.new
         new_booking.generate_booking_nr
-        expect(booking.booking_nr_body.to_i + 1).to be new_booking.booking_nr_body.to_i
+        expect(another_booking.booking_nr_body.to_i + 1).to be new_booking.booking_nr_body.to_i
       end
     end
 

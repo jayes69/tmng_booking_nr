@@ -2,14 +2,6 @@ module TMNGBookingNr
   module ActsAsBookingNrGenerator
     extend ActiveSupport::Concern
 
-    def build_booking_nr_body
-      current_nr = self.class.select(:booking_nr_body).last.try(:booking_nr_body)
-      booking_nr_body = current_nr.to_i + 1
-      b_length = self.class.booking_nr_options[:body_length]
-
-      booking_nr_body.to_s.rjust(b_length, '0')
-    end
-
     module ClassMethods #:nodoc:
       def acts_as_booking_nr_generator(opts = {})
         include TMNGBookingNr::Generator
