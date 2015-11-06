@@ -6,6 +6,9 @@ Rails.backtrace_cleaner.remove_silencers!
 Dir["#{File.dirname(__FILE__)}/support/**/*.rb"].each { |f| require f }
 RSpec.configure do |config|
   require 'database_cleaner'
+  require "codeclimate-test-reporter"
+  
+  CodeClimate::TestReporter.start
 
   config.infer_spec_type_from_file_location!
 
