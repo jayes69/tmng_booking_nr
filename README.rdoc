@@ -1,4 +1,5 @@
 = TmngBookingNr
 {<img src="https://travis-ci.org/Ninigi/tmng_booking_nr.svg?branch=master" alt="Build Status" />}[https://travis-ci.org/Ninigi/tmng_booking_nr]
 {<img src="https://codeclimate.com/github/Ninigi/tmng_booking_nr/badges/gpa.svg" />}[https://codeclimate.com/github/Ninigi/tmng_booking_nr]
+{<img src="https://codeclimate.com/github/Ninigi/tmng_booking_nr/badges/coverage.svg" />}[https://codeclimate.com/github/Ninigi/tmng_booking_nr/coverage]
 TODO
