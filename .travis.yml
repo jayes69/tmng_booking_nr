@@ -5,4 +5,7 @@ rvm:
   - "2.2.2"
 script:
   - bundle install
+  - cd spec/dummy
+  - bundle rake db:migrate RAILS_ENV=test
+  - cd ../..
   - bundle exec rspec spec
