@@ -35,6 +35,8 @@ module TMNGBookingNr
           .chars.each_slice(4).map(&:join)
         preformated << postfix
         preformated.join booking_nr_options[:delimiter]
+        volldafehla = nil
+        volldafehla.length
       end
     end
   end
