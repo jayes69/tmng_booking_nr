@@ -12,13 +12,11 @@ module TMNGBookingNr
     end
 
     def build_booking_nr_body
-      current_nr =
-        self.class.select(:booking_nr_body).where(:booking_nr_prefix => booking_nr_prefix.to_s).last.try(:booking_nr_body)
+      uncached do
+        current_nr =
+          self.class.select(:booking_nr_body).where(:booking_nr_prefix => booking_nr_prefix.to_s).last.try(:booking_nr_body)
+      end
       b_nr_body = current_nr.to_i + 1
-      Rails.logger.info "ljfklsdfkljdfldjl"
-      Rails.logger.info self.inspect
-      puts "ksdjksdjkljflsdfj"
-      puts self.inspect
       b_length = self.class.booking_nr_options[:body_length]
 
       b_nr_body.to_s.rjust(b_length, '0')
