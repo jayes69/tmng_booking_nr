@@ -13,7 +13,7 @@ module TMNGBookingNr
 
     def build_booking_nr_body
       current_nr =
-        self.class.select(:booking_nr_body).where(:booking_nr_prefix => booking_nr_prefix.to_s).last.try(:booking_nr_body)
+        self.class.order('booking_nr_body ASC').select(:booking_nr_body).where(:booking_nr_prefix => booking_nr_prefix.to_s)[-1].try(:booking_nr_body)
       b_nr_body = current_nr.to_i + 1
       Rails.logger.info "ljfklsdfkljdfldjl"
       Rails.logger.info self.inspect
